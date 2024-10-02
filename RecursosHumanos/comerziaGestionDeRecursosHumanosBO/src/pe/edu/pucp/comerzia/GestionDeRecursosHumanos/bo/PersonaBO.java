@@ -56,10 +56,9 @@ public class PersonaBO {
     //     persona.setEstadoE(estadoE);
     //     return personaDAO.insertar(persona);
     // }
-    public Integer insertar(Integer idPersona, String dni, String nombreCompleto, String telefono,
+    public Integer insertar(String dni, String nombreCompleto, String telefono,
             String correo, String direccion) {
         Persona persona = new Persona();
-        persona.setIdPersona(idPersona);
         persona.setDni(dni);
         persona.setNombreCompleto(nombreCompleto);
         persona.setTelefono(telefono);

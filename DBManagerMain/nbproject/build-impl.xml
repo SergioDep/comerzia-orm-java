@@ -1132,8 +1132,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.comerziaPersonasBO}" name="call.subproject"/>
-            <param location="${project.comerziaPersonasBO}/build.xml" name="call.script"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosBO}" name="call.subproject"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosBO}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1141,8 +1141,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.comerziaPersonasDA}" name="call.subproject"/>
-            <param location="${project.comerziaPersonasDA}/build.xml" name="call.script"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosDA}" name="call.subproject"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosDA}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1150,8 +1150,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.comerziaPersonasModel}" name="call.subproject"/>
-            <param location="${project.comerziaPersonasModel}/build.xml" name="call.script"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosModel}" name="call.subproject"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosModel}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
             <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1920,8 +1920,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.comerziaPersonasBO}" name="call.subproject"/>
-            <param location="${project.comerziaPersonasBO}/build.xml" name="call.script"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosBO}" name="call.subproject"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosBO}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1929,8 +1929,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.comerziaPersonasDA}" name="call.subproject"/>
-            <param location="${project.comerziaPersonasDA}/build.xml" name="call.script"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosDA}" name="call.subproject"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosDA}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>
@@ -1938,8 +1938,8 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.comerziaPersonasModel}" name="call.subproject"/>
-            <param location="${project.comerziaPersonasModel}/build.xml" name="call.script"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosModel}" name="call.subproject"/>
+            <param location="${project.comerziaGestionDeRecursosHumanosModel}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>

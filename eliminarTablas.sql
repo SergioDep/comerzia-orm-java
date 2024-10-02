@@ -11,6 +11,9 @@ DROP TABLE IF EXISTS ProductoAlmacenado;
 -- Eliminar tabla Representante
 DROP TABLE IF EXISTS Representante;
 
+-- Eliminar tabla Visita
+DROP TABLE IF EXISTS Visita;
+
 -- Eliminar tabla Cliente
 DROP TABLE IF EXISTS Cliente;
 
@@ -20,23 +23,20 @@ DROP TABLE IF EXISTS Proveedor;
 -- Eliminar tabla Empresa
 DROP TABLE IF EXISTS Empresa;
 
--- Eliminar tabla Visita
-DROP TABLE IF EXISTS Visita;
-
 -- Eliminar tabla Producto
 DROP TABLE IF EXISTS Producto;
 
 -- Eliminar tabla Administrador
-DROP TABLE IF EXISTS administrador;
+DROP TABLE IF EXISTS Administrador;
 
 -- Eliminar tabla Vendedor
-DROP TABLE IF EXISTS vendedor;
+DROP TABLE IF EXISTS Vendedor;
 
 -- Eliminar tabla TrabajadorDeAlmacen
-DROP TABLE IF EXISTS trabajadordealmacen;
+DROP TABLE IF EXISTS TrabajadorDeAlmacen;
 
 -- Eliminar tabla Empleado
-DROP TABLE IF EXISTS empleado;
+DROP TABLE IF EXISTS Empleado;
 
 -- Eliminar tabla Persona
 DROP TABLE IF EXISTS Persona;

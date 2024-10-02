@@ -175,12 +175,15 @@ public abstract class DAOImpl {
     protected abstract String obtenerID();
 
     protected abstract String obtenerIDcategoria();
+    
+    protected abstract void generarObjetoResultado();
 
     public void obtener_Por_Id(Integer id) {
         try {
             this.iniciarTransaccion();
             String sql = this.generarSQLParaConsulta(id);
             this.ejecutarConsultaEnBD(sql);
+            this.generarObjetoResultado();
         } catch (SQLException ex) {
             try {
                 this.rollbackTransaccion();

@@ -69,7 +69,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>comerziaPersonasBO</foreign-project>
+                <foreign-project>comerziaGestionDeRecursosHumanosBO</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -77,7 +77,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>comerziaPersonasDA</foreign-project>
+                <foreign-project>comerziaGestionDeRecursosHumanosDA</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -85,7 +85,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>comerziaPersonasModel</foreign-project>
+                <foreign-project>comerziaGestionDeRecursosHumanosModel</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

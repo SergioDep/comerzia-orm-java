@@ -9,7 +9,6 @@ import java.util.Date;
 import pe.edu.pucp.comerzia.RelacionesComerciales.dao.EmpresaDAO;
 import pe.edu.pucp.comerzia.RelacionesComerciales.daoImpl.EmpresaDAOImpl;
 import pe.edu.pucp.comerzia.RelacionesComerciales.Model.Empresa;
-import pe.edu.pucp.comerzia.RelacionesComerciales.Model.TipoEmpresa;
 
 /**
  *
@@ -24,21 +23,15 @@ public class EmpresaBO {
         this.empresaDAO = new EmpresaDAOImpl(); // Constructor
     }
     
-    public Integer insertar(Integer idEmpresa, String nombre, String direccion, String telefono, String email, String tipoIndustria, TipoEmpresa tipo, Date fecha_afiliacion, String RUC, String razonSocial, Double calificacion, String pais,
-            Date fechaRegistro, Date fechaUltimaCompra){
-       Empresa empresa;
-        if(fechaRegistro == null){ // Es proveedor
-            empresa = new Empresa(idEmpresa, nombre, direccion, telefono, email, tipoIndustria, tipo, fecha_afiliacion, RUC, razonSocial, calificacion, pais);
-        }
-        else{
-            empresa = new Empresa(idEmpresa, nombre, direccion, telefono, email, tipoIndustria, tipo, pais, fechaRegistro, fechaUltimaCompra);
-        }
+    public Integer insertar(String nombre, String direccion, String telefono, String email, String tipoIndustria){
+        Empresa empresa;
+        empresa = new Empresa(nombre, direccion, telefono, email, tipoIndustria);
         return empresaDAO.insertar(empresa);
         
         
     }
     
-    public Integer modificar(Integer idEmpresa, String nombre, String direccion, String telefono, String email, String tipoIndustria, TipoEmpresa tipo, Date fecha_afiliacion, String RUC, String razonSocial, Double calificacion, String pais,
+    public Integer modificar(Integer idEmpresa, String nombre, String direccion, String telefono, String email, String tipoIndustria, Date fecha_afiliacion, String RUC, String razonSocial, Double calificacion, String pais,
             Date fechaRegistro, Date fechaUltimaCompra){
         Empresa empresa = new Empresa();
         empresa.setIdEmpresa(idEmpresa);
@@ -47,14 +40,6 @@ public class EmpresaBO {
         empresa.setTelefono(telefono);
         empresa.setEmail(email);
         empresa.setTipoIndustria(tipoIndustria);
-        empresa.setTipo(tipo);
-        empresa.setFecha_afiliacion(fecha_afiliacion);
-        empresa.setRUC(RUC);
-        empresa.setRazonSocial(razonSocial);
-        empresa.setCalificacion(calificacion);
-        empresa.setPais(pais);
-        empresa.setFechaRegistro(fechaRegistro);
-        empresa.setFechaUltimaCompra(fechaUltimaCompra);
         return this.empresaDAO.modificar(empresa);
         
     }

@@ -18,8 +18,11 @@ public class LineaDocumentoDAOImpl extends DAOImpl implements LineaDocumentoDAO{
 
     @Override
     public Integer insertar(LineaDocumento lineaDocumento) {
+        this.retornarLlavePrimaria = true;
         this.lineaDocumento = lineaDocumento;
-        return insertar();
+        Integer id = insertar();
+        this.retornarLlavePrimaria = false;
+        return id;
     }
 
     @Override
@@ -76,6 +79,20 @@ public class LineaDocumentoDAOImpl extends DAOImpl implements LineaDocumentoDAO{
             Logger.getLogger(LineaDocumentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    @Override
+    protected void generarObjetoResultado(){
+        try {
+            if(!this.resultset.next()){
+                this.lineaDocumento=null;
+            }
+            else{
+                this.lineaDocumento=this.generaLineaDocumentoResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LineaDocumentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private LineaDocumento generaLineaDocumentoResult() throws SQLException{

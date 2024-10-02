@@ -57,7 +57,7 @@ public class TrabajadorDeAlmacenDAOImpl extends DAOImpl implements TrabajadorDeA
         sql = sql.concat(", ");
         sql = sql.concat("'" + this.trabajadorDeAlmacen.getIdAlmacen() + "'");
         sql = sql.concat(", ");
-        sql = sql.concat("'" + this.trabajadorDeAlmacen.isLicenciaMontacarga() + "'");
+        sql = sql.concat(String.valueOf(this.trabajadorDeAlmacen.isLicenciaMontacarga()));
 
         return sql;
     }
@@ -103,6 +103,19 @@ public class TrabajadorDeAlmacenDAOImpl extends DAOImpl implements TrabajadorDeA
             Logger.getLogger(TrabajadorDeAlmacenDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    protected void generarObjetoResultado() {
+        try {
+            if (!this.resultset.next()) {
+                this.trabajadorDeAlmacen = null;
+            } else {
+                this.trabajadorDeAlmacen = this.generaTrabajadorDeAlmacenResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TrabajadorDeAlmacenDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private TrabajadorDeAlmacen generaTrabajadorDeAlmacenResult() throws SQLException {

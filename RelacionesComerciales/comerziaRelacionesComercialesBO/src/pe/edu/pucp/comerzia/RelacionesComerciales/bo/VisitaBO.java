@@ -21,18 +21,18 @@ public class VisitaBO {
         this.visitaDAO = new VisitaDAOImpl(); // Constructor
     }
     
-    public Integer insertar(Integer idVisita, Date fecha, Time duracion, Integer idEmpresa, Integer idPersona){
-        Visita visita = new Visita(idVisita, fecha, duracion, idEmpresa, idPersona);
+    public Integer insertar(Date fecha, Time duracion, Integer idCliente, Integer idVendedor){
+        Visita visita = new Visita(fecha, duracion, idCliente, idVendedor);
         return this.visitaDAO.insertar(visita);
     }
     
-    public Integer modificar(Integer idVisita, Date fecha, Time duracion, Integer idEmpresa, Integer idPersona){
+    public Integer modificar(Integer idVisita, Date fecha, Time duracion, Integer idCliente, Integer idVendedor){
         Visita visita = new Visita();
         visita.setIdVisita(idVisita);
         visita.setFecha(fecha);
         visita.setDuracion(duracion);
-        visita.setIdEmpresa(idEmpresa);
-        visita.setIdPersona(idPersona);
+        visita.setIdCliente(idCliente);
+        visita.setIdVendedor(idVendedor);
         return visitaDAO.modificar(visita);
         
     }

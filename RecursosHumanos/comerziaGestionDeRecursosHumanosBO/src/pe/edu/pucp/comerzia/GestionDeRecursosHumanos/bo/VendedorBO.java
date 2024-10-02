@@ -59,10 +59,9 @@ public class VendedorBO {
 
     //     return vendedorDAO.insertar(vendedor);
     // }
-    public Integer insertar(Integer idVendedor, Integer idEmpleado, Double ingresosVentas, Double porcentajeComision) {
+    public Integer insertar(Integer idEmpleado, Double ingresosVentas, Double porcentajeComision) {
 
         Vendedor vendedor = new Vendedor();
-        vendedor.setIdVendedor(idVendedor);
         vendedor.setIdEmpleado(idEmpleado);
         vendedor.setIngresosVentas(ingresosVentas);
         vendedor.setPorcentajeComision(porcentajeComision);

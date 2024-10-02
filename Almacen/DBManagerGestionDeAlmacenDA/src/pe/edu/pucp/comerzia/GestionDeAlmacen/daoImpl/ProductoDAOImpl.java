@@ -75,16 +75,32 @@ public class ProductoDAOImpl extends DAOImpl implements ProductoDAO {
     @Override
     public Producto obtenerPorId(Integer idProducto) {
         obtener_Por_Id(idProducto);
-        return generaProductoResult();
+        return this.producto;
+    }
+    
+    @Override
+    protected void generarObjetoResultado(){
+        try {
+            if(!this.resultset.next()){
+                this.producto=null;
+            }
+            else{
+                this.producto=this.generaProductoResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Producto generaProductoResult() {
-        Producto producto_local = new Producto ();
+        Producto producto_local = new Producto();
         try {
             producto_local.setIdProducto(this.resultset.getInt("idProducto"));
             producto_local.setNombreProducto(this.resultset.getString("nombreProducto"));
             producto_local.setPrecio(this.resultset.getDouble("precio"));
             producto_local.setStockMinimo(this.resultset.getInt("stockMinimo"));
+            if(this.resultset.getBoolean("eliminado")==true)return null;
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

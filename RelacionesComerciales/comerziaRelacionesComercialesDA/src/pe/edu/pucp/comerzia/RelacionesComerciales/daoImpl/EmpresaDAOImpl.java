@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pe.edu.pucp.comerzia.RelacionesComerciales.daoImpl;
 
 import java.sql.SQLException;
@@ -10,13 +6,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pe.edu.pucp.comerzia.RelacionesComerciales.dao.EmpresaDAO;
 import pe.edu.pucp.comerzia.RelacionesComerciales.Model.Empresa;
-import pe.edu.pucp.comerzia.RelacionesComerciales.Model.TipoEmpresa;
 import pe.edu.pucp.comerzia.db.DAOImpl;
 
-/**
- *
- * @author camilo
- */
 public class EmpresaDAOImpl extends DAOImpl implements EmpresaDAO {
 
     private Empresa empresa;
@@ -28,8 +19,11 @@ public class EmpresaDAOImpl extends DAOImpl implements EmpresaDAO {
 
     @Override
     public Integer insertar(Empresa empresa) {
+        this.retornarLlavePrimaria = true;
         this.empresa = empresa;
-        return insertar();
+        Integer id = insertar();
+        this.retornarLlavePrimaria = false;
+        return id;
     }
 
     @Override
@@ -46,41 +40,80 @@ public class EmpresaDAOImpl extends DAOImpl implements EmpresaDAO {
 
     @Override
     public ArrayList<Empresa> listarTodos() {
-        return listarTodos();
+        // Se crea un array para listar todos los elementos.
+        ArrayList<Empresa> lista = new ArrayList<>();
+        listar();
+        try {
+            while (resultset.next()) {
+                lista.add(new Empresa(resultset.getInt("idEmpresa"), resultset.getString("nombre"), resultset.getString("direccion"),
+                        resultset.getString("telefono"), resultset.getString("email"), resultset.getString("tipoIndustria")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.cerrarConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return lista;
+
     }
 
     @Override
     public Empresa obtenerPorId(Integer idEmpresa) {
+        super.obtener_Por_Id(idEmpresa);
+        return this.empresa;
+
+    }
+
+    // @Override
+    // protected void generarObjetoResultado() {
+    //     try {
+    //         if (!this.resultset.next()) {
+    //             this.vendedor = null;
+    //         } else {
+    //             this.vendedor = generaVendedorResult();
+    //         }
+    //     } catch (SQLException ex) {
+    //         Logger.getLogger(VendedorDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+    //     }
+    // }
+    // private Vendedor generaVendedorResult() throws SQLException {
+    //     Vendedor vendedor_local = new Vendedor();
+    //     // vendedor_local.setIdVendedor(this.resultset.getInt("idVendedor"));
+    //     // vendedor_local.setNombre(this.resultset.getString("nombre"));
+    //     // vendedor_local.setEstado(this.resultset.getString("estado"));
+    //     // vendedor_local.setDescripcion(this.resultset.getString("descripcion"));
+    //     vendedor_local.setIdVendedor(this.resultset.getInt("idVendedor"));
+    //     vendedor_local.setIdEmpleado(this.resultset.getInt("idEmpleado"));
+    //     vendedor_local.setIngresosVentas(this.resultset.getDouble("ingresosVentas"));
+    //     vendedor_local.setPorcentajeComision(this.resultset.getDouble("porcentajeComision"));
+    //     return vendedor_local;
+    // }
+    @Override
+    protected void generarObjetoResultado() {
         try {
-            // ?
-            // Pendiente
-            super.obtener_Por_Id(idEmpresa); // Se castea
-            // this.resultset
-            Empresa empresaLocal = new Empresa();
-            empresaLocal.setIdEmpresa(this.resultset.getInt("idEmpresa"));
-            empresaLocal.setNombre(this.resultset.getString("nombre"));
-            empresaLocal.setDireccion(this.resultset.getString("direccion"));
-            empresaLocal.setTelefono(this.resultset.getString("telefono"));
-            empresaLocal.setEmail(this.resultset.getString("email"));
-            empresaLocal.setTipoIndustria(this.resultset.getString("tipoIndustria"));
-            empresaLocal.setTipo(TipoEmpresa.valueOf(this.resultset.getString("tipo"))); // Asumiendo que el tipo se almacena como una cadena
-
-// Atributos de proveedor
-            empresaLocal.setFecha_afiliacion(this.resultset.getDate("fecha_afiliacion"));
-            empresaLocal.setRUC(this.resultset.getString("RUC"));
-            empresaLocal.setRazonSocial(this.resultset.getString("razonSocial"));
-            empresaLocal.setCalificacion(this.resultset.getDouble("calificacion"));
-            empresaLocal.setPais(this.resultset.getString("pais"));
-
-// Atributos de cliente
-            empresaLocal.setFechaRegistro(this.resultset.getDate("fechaRegistro"));
-            empresaLocal.setFechaUltimaCompra(this.resultset.getDate("fechaUltimaCompra"));
-            return empresaLocal;
+            if (!this.resultset.next()) {
+                this.empresa = null;
+            } else {
+                this.empresa = generaEmpresaResult();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EmpresaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+    }
 
+    private Empresa generaEmpresaResult() throws SQLException {
+        Empresa empresa_local = new Empresa();
+        empresa_local.setIdEmpresa(this.resultset.getInt("idEmpresa"));
+        empresa_local.setNombre(this.resultset.getString("nombre"));
+        empresa_local.setDireccion(this.resultset.getString("direccion"));
+        empresa_local.setTelefono(this.resultset.getString("telefono"));
+        empresa_local.setEmail(this.resultset.getString("email"));
+        empresa_local.setTipoIndustria(this.resultset.getString("tipoIndustria"));
+        return empresa_local;
     }
 
     @Override
@@ -90,25 +123,30 @@ public class EmpresaDAOImpl extends DAOImpl implements EmpresaDAO {
 
     @Override
     protected String obtenerListaDeAtributosParaInsert() {
-        String sql = "idEmpresa, nombre, direccion, telefono, email, tipoIndustria, tipo";
-
-        // Si es proveedor, incluimos atributos de proveedor
-        if (this.empresa.getRUC() != null || this.empresa.getRazonSocial() != null || this.empresa.getFecha_afiliacion() != null) {
-            sql = sql.concat(", fecha_afiliacion, RUC, razonSocial, calificacion, pais");
-        }
-
-        // Si es cliente, incluimos atributos de cliente
-        if (this.empresa.getFechaRegistro() != null || this.empresa.getFechaUltimaCompra() != null) {
-            sql = sql.concat(", fechaRegistro, fechaUltimaCompra");
-        }
-
+        String sql = "nombre, direccion, telefono, email, tipoIndustria";
         return sql;
     }
 
+    @Override
     protected String obtenerListaDeValoresParaInsert() {
+        String sql = "";
+        sql = sql.concat("'" + this.empresa.getNombre() + "'");
+        sql = sql.concat(", ");
+        sql = sql.concat("'" + empresa.getDireccion() + "'");
+        sql = sql.concat(", ");
+        sql = sql.concat("'" + empresa.getTelefono() + "'");
+        sql = sql.concat(", ");
+        sql = sql.concat("'" + empresa.getEmail() + "'");
+        sql = sql.concat(", ");
+        sql = sql.concat("'" + empresa.getTipoIndustria() + "'");
+        return sql;
+    }
+
+    @Override
+    protected String obtenerListaDeAtributosYValoresParaActualizacion() {
         String sql = "idEmpresa = ";
         sql = sql.concat(this.empresa.getIdEmpresa().toString());
-        sql = sql.concat(", nombre = ");
+        sql = sql.concat("nombre = ");
         sql = sql.concat("'" + this.empresa.getNombre() + "'");
         sql = sql.concat(", direccion = ");
         sql = sql.concat("'" + this.empresa.getDireccion() + "'");
@@ -118,116 +156,6 @@ public class EmpresaDAOImpl extends DAOImpl implements EmpresaDAO {
         sql = sql.concat("'" + this.empresa.getEmail() + "'");
         sql = sql.concat(", tipoIndustria = ");
         sql = sql.concat("'" + this.empresa.getTipoIndustria() + "'");
-        sql = sql.concat(", tipo = ");
-        sql = sql.concat("'" + this.empresa.getTipo().toString() + "'"); // Suponiendo que es un enum y se puede llamar toString()
-
-        // Atributos de proveedor
-        if (this.empresa.getFecha_afiliacion() != null) {
-            sql = sql.concat(", fecha_afiliacion = ");
-            sql = sql.concat("'" + this.empresa.getFecha_afiliacion().toString() + "'");
-        }
-        if (this.empresa.getRUC() != null) {
-            sql = sql.concat(", RUC = ");
-            sql = sql.concat("'" + this.empresa.getRUC() + "'");
-        }
-        if (this.empresa.getRazonSocial() != null) {
-            sql = sql.concat(", razonSocial = ");
-            sql = sql.concat("'" + this.empresa.getRazonSocial() + "'");
-        }
-        if (this.empresa.getCalificacion() != null) {
-            sql = sql.concat(", calificacion = ");
-            sql = sql.concat(this.empresa.getCalificacion().toString());
-        }
-        if (this.empresa.getPais() != null) {
-            sql = sql.concat(", pais = ");
-            sql = sql.concat("'" + this.empresa.getPais() + "'");
-        }
-
-        // Atributos de cliente
-        if (this.empresa.getFechaRegistro() != null) {
-            sql = sql.concat(", fechaRegistro = ");
-            sql = sql.concat("'" + this.empresa.getFechaRegistro().toString() + "'");
-        }
-        if (this.empresa.getFechaUltimaCompra() != null) {
-            sql = sql.concat(", fechaUltimaCompra = ");
-            sql = sql.concat("'" + this.empresa.getFechaUltimaCompra().toString() + "'");
-        }
-
-        return sql;
-    }
-
-    protected String obtenerListaDeAtributosYValoresParaActualizacion() {
-        String sql = "idEmpresa = ";
-        sql = sql.concat(this.empresa.getIdEmpresa().toString());
-
-        // Verificar si los campos no son nulos para poder incluirlos.
-        if (this.empresa.getNombre() != null) {
-            sql = sql.concat(", nombre = ");
-            sql = sql.concat("'" + this.empresa.getNombre() + "'");
-        }
-
-        if (this.empresa.getDireccion() != null) {
-            sql = sql.concat(", direccion = ");
-            sql = sql.concat("'" + this.empresa.getDireccion() + "'");
-        }
-
-        if (this.empresa.getTelefono() != null) {
-            sql = sql.concat(", telefono = ");
-            sql = sql.concat("'" + this.empresa.getTelefono() + "'");
-        }
-
-        if (this.empresa.getEmail() != null) {
-            sql = sql.concat(", email = ");
-            sql = sql.concat("'" + this.empresa.getEmail() + "'");
-        }
-
-        if (this.empresa.getTipoIndustria() != null) {
-            sql = sql.concat(", tipoIndustria = ");
-            sql = sql.concat("'" + this.empresa.getTipoIndustria() + "'");
-        }
-
-        if (this.empresa.getTipo() != null) {
-            sql = sql.concat(", tipo = ");
-            sql = sql.concat("'" + this.empresa.getTipo().toString() + "'");
-        }
-
-        // Atributos de proveedor
-        if (this.empresa.getFecha_afiliacion() != null) {
-            sql = sql.concat(", fecha_afiliacion = ");
-            sql = sql.concat("'" + this.empresa.getFecha_afiliacion().toString() + "'");
-        }
-
-        if (this.empresa.getRUC() != null) {
-            sql = sql.concat(", RUC = ");
-            sql = sql.concat("'" + this.empresa.getRUC() + "'");
-        }
-
-        if (this.empresa.getRazonSocial() != null) {
-            sql = sql.concat(", razonSocial = ");
-            sql = sql.concat("'" + this.empresa.getRazonSocial() + "'");
-        }
-
-        if (this.empresa.getCalificacion() != null) {
-            sql = sql.concat(", calificacion = ");
-            sql = sql.concat(this.empresa.getCalificacion().toString());
-        }
-
-        if (this.empresa.getPais() != null) {
-            sql = sql.concat(", pais = ");
-            sql = sql.concat("'" + this.empresa.getPais() + "'");
-        }
-
-        // Atributos de cliente
-        if (this.empresa.getFechaRegistro() != null) {
-            sql = sql.concat(", fechaRegistro = ");
-            sql = sql.concat("'" + this.empresa.getFechaRegistro().toString() + "'");
-        }
-
-        if (this.empresa.getFechaUltimaCompra() != null) {
-            sql = sql.concat(", fechaUltimaCompra = ");
-            sql = sql.concat("'" + this.empresa.getFechaUltimaCompra().toString() + "'");
-        }
-
         return sql;
     }
 

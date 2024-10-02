@@ -1,35 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package pe.edu.pucp.comerzia.RelacionesComerciales.Model;
 
 import java.sql.Time;
 import java.util.Date;
 
-
 public class Visita {
+
     private Integer idVisita;
+    private static Integer id_correlativo = 1;
     private Date fecha;
     private Time duracion;
-    private Integer idEmpresa;
-    private Integer idPersona;
-      
+    private Integer idCliente;
+    private Integer idVendedor;
+
     // Constructores.
-
-    public Visita() {
-    }
-
-    public Visita(Integer idVisita, Date fecha, Time duracion, Integer idEmpresa, Integer idPersona) {
+    public Visita(Integer idVisita, Date fecha, Time duracion, Integer idCliente, Integer idVendedor) {
         this.idVisita = idVisita;
         this.fecha = fecha;
         this.duracion = duracion;
-        this.idEmpresa = idEmpresa;
-        this.idPersona = idPersona;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
     }
-    
-    // Getters y Setters.
 
+    public Visita(Date fecha, Time duracion, Integer idCliente, Integer idVendedor) {
+        this.idVisita = id_correlativo;
+        this.fecha = fecha;
+        this.duracion = duracion;
+        this.idCliente = idCliente;
+        this.idVendedor = idVendedor;
+        id_correlativo++;
+    }
+
+    // null
+    public Visita() {
+        this.idVisita = null;
+        this.fecha = null;
+        this.duracion = null;
+        this.idCliente = null;
+        this.idVendedor = null;
+    }
+
+    // Getters y Setters.
     public Integer getIdVisita() {
         return idVisita;
     }
@@ -54,24 +64,19 @@ public class Visita {
         this.duracion = duracion;
     }
 
-    public Integer getIdEmpresa() {
-        return idEmpresa;
+    public Integer getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdEmpresa(Integer idEmpresa) {
-        this.idEmpresa = idEmpresa;
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public Integer getIdPersona() {
-        return idPersona;
+    public Integer getIdVendedor() {
+        return idVendedor;
     }
 
-    public void setIdPersona(Integer idPersona) {
-        this.idPersona = idPersona;
+    public void setIdVendedor(Integer idVendedor) {
+        this.idVendedor = idVendedor;
     }
-    
-    
-
-   
-    
 }

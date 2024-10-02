@@ -112,6 +112,20 @@ public class EmpleadoDAOImpl extends DAOImpl implements EmpleadoDAO {
         }
         return null;
     }
+    
+    @Override
+    protected void generarObjetoResultado(){
+        try {
+            if(!this.resultset.next()){
+                this.empleado=null;
+            }
+            else{
+                this.empleado=this.generaEmpleadoResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private Empleado generaEmpleadoResult() throws SQLException {
         Empleado empleado_local = new Empleado();

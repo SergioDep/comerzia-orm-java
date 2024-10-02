@@ -58,10 +58,9 @@ public class TrabajadorDeAlmacenBO {
 
     //     return trabajadorDeAlmacenDAO.insertar(trabajadorDeAlmacen);
     // }
-    public Integer insertar(Integer idTrabajadorDeAlmacen, Integer idEmpleado, Integer idAlmacen, Boolean licenciaMontacarga) {
+    public Integer insertar(Integer idEmpleado, Integer idAlmacen, Boolean licenciaMontacarga) {
 
         TrabajadorDeAlmacen trabajadorDeAlmacen = new TrabajadorDeAlmacen();
-        trabajadorDeAlmacen.setIdTrabajadorDeAlmacen(idTrabajadorDeAlmacen);
         trabajadorDeAlmacen.setIdEmpleado(idEmpleado);
         trabajadorDeAlmacen.setIdAlmacen(idAlmacen);
         trabajadorDeAlmacen.setLicenciaMontacarga(licenciaMontacarga);

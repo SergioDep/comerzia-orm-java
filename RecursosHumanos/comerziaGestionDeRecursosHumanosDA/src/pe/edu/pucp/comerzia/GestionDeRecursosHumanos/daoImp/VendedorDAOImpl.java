@@ -8,19 +8,6 @@ import pe.edu.pucp.comerzia.GestionDeRecursosHumanos.dao.VendedorDAO;
 import pe.edu.pucp.comerzia.GestionDeRecursosHumanos.model.Vendedor;
 import pe.edu.pucp.comerzia.db.DAOImpl;
 
-/*
-
-public class Vendedor {
-
-    private Integer idVendedor;
-    private static Integer idCorrelativo = 1;
-
-    private Integer idEmpleado;
-    // private Empleado empleado;
-
-    private Double ingresosVentas;
-    private Double porcentajeComision;
- */
 public class VendedorDAOImpl extends DAOImpl implements VendedorDAO {
 
     private Vendedor vendedor;
@@ -103,6 +90,19 @@ public class VendedorDAOImpl extends DAOImpl implements VendedorDAO {
             Logger.getLogger(VendedorDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    protected void generarObjetoResultado() {
+        try {
+            if (!this.resultset.next()) {
+                this.vendedor = null;
+            } else {
+                this.vendedor = generaVendedorResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VendedorDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private Vendedor generaVendedorResult() throws SQLException {

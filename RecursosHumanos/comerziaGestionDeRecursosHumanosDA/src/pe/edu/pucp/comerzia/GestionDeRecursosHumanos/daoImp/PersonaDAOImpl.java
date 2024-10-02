@@ -90,6 +90,19 @@ public class PersonaDAOImpl extends DAOImpl implements PersonaDAO {
         return null;
     }
 
+    @Override
+    protected void generarObjetoResultado() {
+        try {
+            if (!this.resultset.next()) {
+                this.persona = null;
+            } else {
+                this.persona = this.generaPersonaResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private Persona generaPersonaResult() throws SQLException {
         Persona persona_local = new Persona();
         persona_local.setIdPersona(this.resultset.getInt("idPersona"));

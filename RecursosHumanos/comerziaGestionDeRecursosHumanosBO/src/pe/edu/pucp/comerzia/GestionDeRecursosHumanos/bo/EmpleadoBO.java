@@ -62,10 +62,9 @@ public class EmpleadoBO {
 
     //     return empleadoDAO.insertar(empleado);
     // }
-    public Integer insertar(Integer idEmpleado, Integer idPersona, EstadoEmpleado estado, String nombreUsuario, String contrasenha, Double salario, Date fechaContratacion) {
+    public Integer insertar(Integer idPersona, EstadoEmpleado estado, String nombreUsuario, String contrasenha, Double salario, Date fechaContratacion) {
 
         Empleado empleado = new Empleado();
-        empleado.setIdEmpleado(idEmpleado);
         empleado.setIdPersona(idPersona);
         empleado.setEstado(estado);
         empleado.setNombreUsuario(nombreUsuario);

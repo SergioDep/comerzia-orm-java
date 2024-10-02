@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class ProductoAlmacenado  {
     private Integer idProductoAlmacenado;
-    private static Integer correlativo = 0;
+    private static Integer correlativo = 1;
     private Integer idAlmacen;     
     private Date fechaAlmacenado;
     private Integer stockActual;

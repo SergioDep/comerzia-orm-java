@@ -76,12 +76,21 @@ public class AlmacenDAOImpl extends DAOImpl implements AlmacenDAO {
     @Override
     public Almacen obtenerPorId(Integer idAlmacen) {
         obtener_Por_Id(idAlmacen);
+        return this.almacen;
+    }
+    
+    @Override
+    protected void generarObjetoResultado(){
         try {
-            return generaAlmacenResult();
+            if(!this.resultset.next()){
+                this.almacen=null;
+            }
+            else{
+                this.almacen=this.generaAlmacenResult();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(AlmacenDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
     }
 
     private Almacen generaAlmacenResult() throws SQLException {
@@ -90,6 +99,7 @@ public class AlmacenDAOImpl extends DAOImpl implements AlmacenDAO {
         almacen_local.setNombre(this.resultset.getString("nombre"));
         almacen_local.setEstado(this.resultset.getString("estado"));
         almacen_local.setDescripcion(this.resultset.getString("descripcion"));
+        if(this.resultset.getBoolean("eliminado")==true)return null;
         return almacen_local;
     }
 

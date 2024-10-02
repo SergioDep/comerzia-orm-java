@@ -96,6 +96,20 @@ public class AdministradorDAOImpl extends DAOImpl implements AdministradorDAO {
         }
         return null;
     }
+    
+    @Override
+    protected void generarObjetoResultado(){
+        try {
+            if(!this.resultset.next()){
+                this.administrador=null;
+            }
+            else{
+                this.administrador=this.generaAdministradorResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AdministradorDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private Administrador generaAdministradorResult() throws SQLException {
         Administrador administrador_local = new Administrador();

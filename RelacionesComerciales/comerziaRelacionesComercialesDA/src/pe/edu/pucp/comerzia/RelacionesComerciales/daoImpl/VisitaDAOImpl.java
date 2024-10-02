@@ -12,6 +12,7 @@ import pe.edu.pucp.comerzia.RelacionesComerciales.dao.VisitaDAO;
 import pe.edu.pucp.comerzia.RelacionesComerciales.Model.Visita;
 import pe.edu.pucp.comerzia.db.DAOImpl;
 
+
 public class VisitaDAOImpl extends DAOImpl implements VisitaDAO {
 
     private Visita visita;
@@ -23,8 +24,11 @@ public class VisitaDAOImpl extends DAOImpl implements VisitaDAO {
 
     @Override
     public Integer insertar(Visita visita) {
+        this.retornarLlavePrimaria = true;
         this.visita = visita;
-        return insertar();
+        Integer id = insertar();
+        this.retornarLlavePrimaria = false;
+        return id;
     }
 
     @Override
@@ -50,17 +54,64 @@ public class VisitaDAOImpl extends DAOImpl implements VisitaDAO {
         try {
             super.obtener_Por_Id(idVisita);
             Visita visitaLocal = new Visita();
-            
+
             visitaLocal.setIdVisita(this.resultset.getInt("idVisita"));
             visitaLocal.setFecha(this.resultset.getDate("fecha"));
             visitaLocal.setDuracion(this.resultset.getTime("duracion"));
-            visitaLocal.setIdEmpresa(this.resultset.getInt("idEmpresa"));
-            visitaLocal.setIdPersona(this.resultset.getInt("idPersona"));
+            visitaLocal.setIdCliente(this.resultset.getInt("idCliente"));
+            visitaLocal.setIdVendedor(this.resultset.getInt("idVendedor"));
             return visitaLocal;
         } catch (SQLException ex) {
             Logger.getLogger(VisitaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    // @Override
+    // protected void generarObjetoResultado() {
+    //     try {
+    //         if (!this.resultset.next()) {
+    //             this.vendedor = null;
+    //         } else {
+    //             this.vendedor = generaVendedorResult();
+    //         }
+    //     } catch (SQLException ex) {
+    //         Logger.getLogger(VendedorDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+    //     }
+    // }
+    // private Vendedor generaVendedorResult() throws SQLException {
+    //     Vendedor vendedor_local = new Vendedor();
+    //     // vendedor_local.setIdVendedor(this.resultset.getInt("idVendedor"));
+    //     // vendedor_local.setNombre(this.resultset.getString("nombre"));
+    //     // vendedor_local.setEstado(this.resultset.getString("estado"));
+    //     // vendedor_local.setDescripcion(this.resultset.getString("descripcion"));
+    //     vendedor_local.setIdVendedor(this.resultset.getInt("idVendedor"));
+    //     vendedor_local.setIdEmpleado(this.resultset.getInt("idEmpleado"));
+    //     vendedor_local.setIngresosVentas(this.resultset.getDouble("ingresosVentas"));
+    //     vendedor_local.setPorcentajeComision(this.resultset.getDouble("porcentajeComision"));
+    //     return vendedor_local;
+    // }
+    @Override
+    protected void generarObjetoResultado() {
+        try {
+            if (!this.resultset.next()) {
+                this.visita = null;
+            } else {
+                this.visita = generaVisitaResult();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(VisitaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private Visita generaVisitaResult() throws SQLException {
+        Visita visita_local = new Visita();
+        visita_local.setIdVisita(this.resultset.getInt("idVisita"));
+        visita_local.setFecha(this.resultset.getDate("fecha"));
+        visita_local.setDuracion(this.resultset.getTime("duracion"));
+        visita_local.setIdCliente(this.resultset.getInt("idCliente"));
+        visita_local.setIdVendedor(this.resultset.getInt("idVendedor"));
+        return visita_local;
     }
 
     @Override
@@ -70,21 +121,19 @@ public class VisitaDAOImpl extends DAOImpl implements VisitaDAO {
 
     @Override
     protected String obtenerListaDeAtributosParaInsert() {
-        return "idVisita, fecha, duracion, idEmpresa, idPersona";
+        return "fecha, duracion, idCliente, idVendedor";
     }
 
     @Override
     protected String obtenerListaDeValoresParaInsert() {
         String sql = "";
-        sql = sql.concat(this.visita.getIdVisita().toString());
-        sql = sql.concat(", ");
         sql = sql.concat("'" + this.visita.getFecha().toString() + "'");
         sql = sql.concat(", ");
         sql = sql.concat("'" + this.visita.getDuracion().toString() + "'");
         sql = sql.concat(", ");
-        sql = sql.concat("'" + this.visita.getIdEmpresa().toString() + "'");
+        sql = sql.concat("'" + this.visita.getIdCliente().toString() + "'");
         sql = sql.concat(", ");
-        sql = sql.concat("'" + this.visita.getIdPersona().toString() + "'"); // Colocar paquete Persona.
+        sql = sql.concat("'" + this.visita.getIdVendedor().toString() + "'"); // Colocar paquete Persona.
         return sql;
     }
 
@@ -96,10 +145,10 @@ public class VisitaDAOImpl extends DAOImpl implements VisitaDAO {
         sql = sql.concat("'" + this.visita.getFecha().toString() + "'");
         sql = sql.concat(", duracion = ");
         sql = sql.concat("'" + this.visita.getDuracion().toString() + "'");
-        sql = sql.concat(", idEmpresa = ");
-        sql = sql.concat("'" + this.visita.getIdEmpresa().toString() + "'");
-        sql = sql.concat(", idPersona = ");
-        sql = sql.concat("'" + this.visita.getIdPersona().toString() + "'");
+        sql = sql.concat(", idCliente = ");
+        sql = sql.concat("'" + this.visita.getIdCliente().toString() + "'");
+        sql = sql.concat(", idVendedor = ");
+        sql = sql.concat("'" + this.visita.getIdVendedor().toString() + "'");
 
         return sql;
     }
