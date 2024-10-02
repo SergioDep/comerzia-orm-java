@@ -1,0 +1,66 @@
+# Ignorar carpetas de configuración privada de NetBeans en cualquier nivel
+**/nbproject/private/
+**/nbproject/private/*
+**/nbproject/Makefile-*
+**/nbproject/Package-*
+**/nbactions.xml
+**/nb-configuration.xml
+**/update_tracking/
+
+# Ignorar directorios de compilación en cualquier nivel
+**/build/
+**/dist/
+**/nbbuild/
+**/nbdist/
+**/nbrelease/
+**/release/
+
+# Ignorar archivos compilados .class en cualquier nivel
+**/*.class
+
+# Ignorar archivos de registro
+**/*.log
+
+# Ignorar archivos generados
+**/hs_err_pid*
+
+# Ignorar archivos autogenerados por el constructor de GUI
+**/*.form
+
+# Ignorar archivos de paquetes
+**/*.jar
+**/*.war
+**/*.nar
+**/*.ear
+**/*.zip
+**/*.tar.gz
+**/*.rar
+
+# Ignorar archivos generados por el sistema operativo
+**/.DS_Store
+**/Thumbs.db
+
+# Ignorar archivos temporales
+**/*.tmp
+**/*.bak
+**/*.swp
+**/*~
+
+# Ignorar archivos específicos del IDE
+**/*.iml
+**/.idea/
+**/*.ipr
+**/*.iws
+**/.classpath
+**/.project
+**/.settings/
+
+# Ignorar variables de entorno
+**/.env
+
+# Ignorar archivos de Gradle
+**/.gradle/
+**/build/
+
+# Ignorar directorio target de Maven
+**/target/
